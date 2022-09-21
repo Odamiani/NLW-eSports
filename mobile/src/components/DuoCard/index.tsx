@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import { THEME } from '../../theme';
 import { DuoInfo } from '../DuoInfo';
 
 import { styles } from './styles';
@@ -30,12 +31,12 @@ export function DuoCard({ data }: Props) {
       />
       <DuoInfo 
         label = 'Disponibilidade'
-        value={`${data.weekDays.length} dias`}
+        value={`${data.weekDays.length} dias \u2022 ${data.hourStart} - ${data.hourEnd}`}
       />
       <DuoInfo 
-        label = 'Nome'
-        value='Felipe Damiani'
-        colorValue='green'
+        label = 'Chamada de áudio'
+        value={data.useVoiceChannel ? "Sim": "Não"}
+        colorValue={data.useVoiceChannel ? THEME.COLORS.SUCCESS: THEME.COLORS.ALERT}
       />
     </View>
   );
