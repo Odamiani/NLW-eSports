@@ -6,6 +6,7 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
 import { Input } from './Form/input';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface Game{
     id: string;
@@ -18,21 +19,34 @@ export function CreateAdModal(){
     const [useVoiceChannel, setUseVoiceChannel] = useState(false)
 
     useEffect(() => {
-      fetch('http://localhost:3333/games')
-        .then(response => response.json())
-        .then(data => {
-          setGames(data)
+      axios('http://localhost:3333/games').then(response => {
+          setGames(response.data)
         })
     }, [])
 
-    const handleCreateAd = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleCreateAd = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.target as HTMLFormElement)
-
         const data = Object.fromEntries(formData)
-    }
 
+        try{
+                axios.post(`http://localhost:3333/games/${data.game}/ads`, {
+                "name": data.name,
+                "yearsPlaying": Number(data.yearsPlaying),
+                "discord": data.discord,
+                "weekDays": weekDays.map(Number),
+                "hourStart": data.hourStart,
+                "hourEnd": data.hourEnd,
+                "useVoiceChannel": useVoiceChannel
+            })
+
+            alert('Anúncio criado com sucesso!')
+        } catch(err){
+            console.log(err)
+            alert('Erro ao criar o anúncio!')
+        }
+    }
     /*
     function handleCreateAd(event: HTMLFormElement){
       event.preventDefault();
@@ -44,7 +58,6 @@ export function CreateAdModal(){
        console.log(data)
     }
     */
-
     return(
         <Dialog.Portal>
             <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
