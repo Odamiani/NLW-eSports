@@ -30,15 +30,21 @@ export function CreateAdModal(){
         const formData = new FormData(e.target as HTMLFormElement)
         const data = Object.fromEntries(formData)
 
+        //Fazer Validação
+
+        if (!data.name){
+            return;
+        }
+
         try{
-                axios.post(`http://localhost:3333/games/${data.game}/ads`, {
-                "name": data.name,
-                "yearsPlaying": Number(data.yearsPlaying),
-                "discord": data.discord,
-                "weekDays": weekDays.map(Number),
-                "hourStart": data.hourStart,
-                "hourEnd": data.hourEnd,
-                "useVoiceChannel": useVoiceChannel
+                await axios.post(`http://localhost:3333/games/${data.game}/ads`, {
+                name: data.name,
+                yearsPlaying: Number(data.yearsPlaying),
+                discord: data.discord,
+                weekDays: weekDays.map(Number),
+                hourStart: data.hourStart,
+                hourEnd: data.hourEnd,
+                useVoiceChannel: useVoiceChannel
             })
 
             alert('Anúncio criado com sucesso!')
