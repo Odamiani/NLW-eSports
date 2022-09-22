@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../theme';
+import { Background } from '../Background';
 
 export const styles = StyleSheet.create({
   container: {
@@ -18,6 +19,22 @@ export const styles = StyleSheet.create({
   closeIcon:{
     alignSelf: 'flex-end',
     margin: 16,
+  },
+  labelText:{
+    color: THEME.COLORS.TEXT,
+    fontFamily: THEME.FONT_FAMILY.SEMI_BOLD,
+    fontSize: THEME.FONT_SIZE.MD,
+    marginTop: 24,
+    marginBottom: 8
+  },
+  buttonDiscord:{
+    width: 231,
+    height: 48,
+    alignItems:'center',
+    justifyContent: 'center',
+    backgroundColor: THEME.COLORS.BACKGROUND_900,
+    borderRadius: 4,
+    marginBottom: 32,
   },
   discord: {
     color: THEME.COLORS.TEXT,
